@@ -25,8 +25,8 @@ app.use(express.json());
 
 // CORS Configuration
 const allowedOrigins = [
-    'https://pharmlink-healthcareservices-admin.vercel.app',
-    'https://pharmlink-healthcareservices.vercel.app',
+    'https://pharmlink-red.vercel.app',
+    'https://pharmlink-ccgs.vercel.app',
     // Local development (frontend and admin panel)
     'http://localhost:5173',
     'http://localhost:5174',
