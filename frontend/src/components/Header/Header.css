@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Unbounded:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&family=Unbounded:wght@200..900&display=swap');
+
+#page1 {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    background-image: url("https://esanjeevani.mohfw.gov.in/cover_flag.8b333f86e5440c08.svg");
+    background-color: #E8F1FF;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-position-y: center;
+    background-size: fill;
+    z-index: 0;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 0, 0, 0.225);
+    min-height: 640px;
+  }
+  
+  #left-page1 {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    padding-left: 90px;
+    gap: 10px;
+  }
+  
+  #left-page1 h1 {
+    font-family: "Unbounded", sans-serif;
+    font-size: 42px;
+    width: 85%;
+    
+  
+  }
+  
+  #left-page1>p {
+    font-family: "Titillium Web", sans-serif;
+    font-size: 18px;
+    width: 65%;
+  
+  
+  }
+  
+  #pm-card {
+    padding: 15px 20px;
+    margin-bottom: -10px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column-reverse;
+    width: 400px;
+    gap: 20px;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 20px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  
+  
+  #pm-card-top {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  
+  
+  }
+  
+  #pm-card-top img {
+  
+    width: 60px;
+  }
+  
+  #pm-card-top h2 {
+  
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  #pm-card-top p {
+  
+    font-size: 14px;
+  }
+  
+  #pm-card-bottom h2 {
+    text-align: center;
+  }
+  
+  #right-page1 {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  @media (max-width: 1000px) {
+    #left-page1 h1 {
+      font-family: "Unbounded", sans-serif;
+      font-size: 35px;
+      width: 145%;
+  
+  
+    }
+  
+    #left-page1>p {
+      font-family: "Titillium Web", sans-serif;
+      font-size: 18px;
+      width: 85%;
+  
+  
+    }
+  
+    #pm-card {
+  
+      width: 320px;
+  
+    }
+  
+  
+    #pm-card-top img {
+  
+      width: 50px;
+    }
+  
+    #pm-card-top h2 {
+  
+      font-size: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+  
+    #pm-card-top p {
+  
+      font-size: 12px;
+    }
+  
+    #pm-card-bottom h2 {
+      text-align: center;
+      font-size: 15px;
+    }
+  
+    #left-page1 {
+      height: 100%;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+      justify-content: center;
+      padding-left: 50px;
+  
+    }
+  }
+  
+  @media (max-width: 640px) {
+    #page1 {
+      padding: 20px;
+      padding-top: 0px;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      height: 100%;
+      width: 100%;
+      gap: 20px;
+    }
+  
+    #right-page1 {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+    }
+  
+    #left-page1 {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-left: 00px;
+      padding-top: 50px
+  
+    }
+  
+    #left-page1 h1 {
+  
+      font-size: 8vw;
+      width: 100%;
+      text-align: center;
+      
+  
+    }
+  
+    #left-page1>p {
+  
+      font-size: 3.5vw;
+      width: 100%;
+      opacity: 60%;
+      text-align: center;
+  
+    }
+  
+    #pm-card {
+      padding: 15px 20px;
+      margin-bottom: -20px;
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column-reverse;
+      width: 350px;
+      gap: 10px;
+      z-index: 0;
+  
+    }
+  
+    #pm-card {
+  
+      width: 320px;
+  
+    }
+  
+  
+    #pm-card-top img {
+  
+      width: 40px;
+    }
+  
+    #pm-card-top h2 {
+  
+      font-size: 13px;
+      text-align: center;
+      font-weight: bold;
+    }
+  
+    #pm-card-top p {
+  
+      font-size: 11px;
+    }
+  
+    #pm-card-bottom h2 {
+      text-align: center;
+      font-size: 13px;
+    }
+  }

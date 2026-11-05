@@ -1,0 +1,58 @@
+# Run everything:   docker compose up --build
+# Load PDFs (once): docker compose run --rm chatbot python ingest.py
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    env_file: ./backend/.env
+    environment:
+      # Overrides MONGODB_URI from backend/.env so the container talks to the mongo service.
+      # To use MongoDB Atlas instead, delete this line and the mongo service.
+      MONGODB_URI: mongodb://mongo:27017/pharmlink
+      PORT: "4000"
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongo
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_BACKEND_URL: ${VITE_BACKEND_URL:-http://localhost:4000}
+        VITE_CHATBOT_URL: ${VITE_CHATBOT_URL:-http://localhost:5000}
+        VITE_RAZORPAY_KEY_ID: ${VITE_RAZORPAY_KEY_ID:-}
+        VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID:-}
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+
+  admin:
+    build:
+      context: ./admin
+      args:
+        VITE_BACKEND_URL: ${VITE_BACKEND_URL:-http://localhost:4000}
+        VITE_CURRENCY: ${VITE_CURRENCY:-₹}
+    restart: unless-stopped
+    ports:
+      - "5174:80"
+
+  chatbot:
+    build: ./chatbot
+    restart: unless-stopped
+    env_file: ./chatbot/.env
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./chatbot/data:/app/data      # your medical PDFs
+      - hf_cache:/models              # caches the embedding model between restarts
+
+volumes:
+  mongo_data:
+  hf_cache:

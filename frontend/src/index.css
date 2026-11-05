@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sawarabi+Gothic&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');@import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sawarabi+Gothic&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.active hr{
+    @apply block
+}
+
+::-webkit-scrollbar{
+    @apply hidden
+}
+*{
+    font-family: "Sawarabi Gothic", serif;
+}
+h1{
+    letter-spacing: 1px;
+}
+
+/* ---------- Theme ---------- */
+body { @apply bg-white text-gray-900; }
+
+/* Dark mode: remap the light palette used across the app, so every page follows
+   the theme without touching each component. Toggle adds/removes `dark` on <html>. */
+.dark body { background-color: #0f1117; color: #e5e7eb; }
+.dark .bg-white { background-color: #171a23; }
+.dark .bg-gray-50 { background-color: #1b1f2a; }
+.dark .bg-gray-100 { background-color: #222735; }
+.dark .bg-gray-200 { background-color: #2b3142; }
+.dark .bg-blue-50, .dark .bg-indigo-50 { background-color: #1a2440; }
+.dark .bg-blue-100, .dark .bg-indigo-100 { background-color: #1f2d52; }
+.dark .bg-green-50 { background-color: #12261c; }
+.dark .bg-red-50 { background-color: #2c1618; }
+.dark .bg-white\/80 { background-color: rgba(23, 26, 35, 0.8); }
+.dark .from-blue-50 { --tw-gradient-from: #1a2440 var(--tw-gradient-from-position); --tw-gradient-to: rgb(26 36 64 / 0) var(--tw-gradient-to-position); }
+.dark .to-indigo-50 { --tw-gradient-to: #1b2140 var(--tw-gradient-to-position); }
+.dark .from-gray-200 { --tw-gradient-from: #2b3142 var(--tw-gradient-from-position); --tw-gradient-to: rgb(43 49 66 / 0) var(--tw-gradient-to-position); }
+.dark .to-gray-300 { --tw-gradient-to: #3a4157 var(--tw-gradient-to-position); }
+
+.dark .text-black, .dark .text-gray-900, .dark .text-gray-800 { color: #f3f4f6; }
+.dark .text-gray-700 { color: #d1d5db; }
+.dark .text-gray-600 { color: #b6bcc8; }
+.dark .text-gray-500 { color: #9ca3af; }
+.dark .text-gray-400 { color: #8b93a3; }
+.dark .text-blue-600, .dark .text-blue-700, .dark .text-indigo-600, .dark .text-indigo-500, .dark .text-primary { color: #9ea8ff; }
+.dark .text-green-600, .dark .text-green-700 { color: #4ade80; }
+.dark .text-red-600, .dark .text-red-700, .dark .text-red-800 { color: #f87171; }
+
+.dark .border-gray-100, .dark .border-gray-200, .dark .border-gray-300, .dark .border-gray-400 { border-color: #2f3646; }
+.dark .border-blue-200, .dark .border-indigo-300 { border-color: #33427a; }
+.dark .border-green-200 { border-color: #1f4630; }
+.dark .border-red-200, .dark .border-red-300 { border-color: #5b2a2e; }
+.dark hr { border-color: #2f3646; }
+
+.dark .hover\:bg-gray-100:hover { background-color: #222735; }
+.dark .hover\:bg-white:hover { background-color: #171a23; }
+.dark .hover\:bg-blue-100:hover { background-color: #26386a; }
+.dark .hover\:bg-green-100:hover { background-color: #173525; }
+.dark .hover\:bg-red-100:hover { background-color: #3a1c1f; }
+.dark .hover\:text-black:hover { color: #fff; }
+.dark .hover\:text-blue-600:hover, .dark .hover\:text-blue-700:hover, .dark .hover\:text-blue-900:hover { color: #c3caff; }
+
+.dark input, .dark select, .dark textarea { background-color: #171a23; color: #f3f4f6; border-color: #2f3646; }
+.dark input::placeholder, .dark textarea::placeholder { color: #7d8496; }
+.dark .shadow, .dark .shadow-md, .dark .shadow-lg, .dark .shadow-xl, .dark .shadow-sm { --tw-shadow-color: rgba(0,0,0,.5); }
+
+/* Landing-page hero + flowchart use plain CSS colours */
+.dark #page1 { background-color: #141a2e; border-color: rgba(255,255,255,.12); }
+.dark .step { background-color: #1b1f2a; border-color: #3a4157; color: #e5e7eb; }
+
+/* Dark logos/black line-art icons need a lift on a dark surface */
+.dark img[src*="PharmLink"] { filter: brightness(0) invert(1); }
+
+html { transition: background-color .2s ease; }
+.dark img[src*="menu_icon"], .dark img[src*="cross_icon"], .dark img[src*="dropdown_icon"] { filter: invert(1); }
+
+/* Sticky top navbar */
+.site-nav { background-color: #fff; }
+.dark .site-nav { background-color: #0f1117; }
