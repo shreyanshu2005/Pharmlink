@@ -12,6 +12,7 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-06B6D4?logo=tailwindcss&logoColor=white)
 
 [Live Demo](#-live-demo) · [Screenshots](#-screenshots) · [Features](#-features) · [Setup](#-local-setup) · [Deployment](#-deployment)
+<<<<<<< HEAD
 
 </div>
 
@@ -31,6 +32,36 @@
 
 ## 🌐 Live Demo
 
+=======
+
+</div>
+
+---
+
+## 📖 Overview
+
+**PharmLink** is a full-stack healthcare management platform with three web apps and an AI service:
+
+| App | Who uses it | What it does |
+|---|---|---|
+| **Patient site** (`frontend/`) | Patients | Find doctors, book and pay for appointments, manage a profile, chat with the AI assistant |
+| **Admin & Doctor panel** (`admin/`) | Admins and doctors | Manage doctors and appointments, view dashboards |
+| **API** (`backend/`) | Both apps | Node/Express REST API with MongoDB, JWT auth, Razorpay and Google Calendar |
+| **AI assistant** (`chatbot/`) | Patient site | Flask service that answers health questions from trusted medical PDFs (RAG) |
+
+---
+
+## 🎥 Demo videos
+
+[![Watch the Demo](https://img.youtube.com/vi/v4q3-HdnE0g/0.jpg)](https://youtu.be/v4q3-HdnE0g)
+
+[![AI Chatbot Demo](https://img.shields.io/badge/Watch%20Chatbot%20Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=__IsLxIoxu8)
+
+---
+
+## 🌐 Live Demo
+
+>>>>>>> e319b2e (Update PharmLink project)
 | Service | URL |
 |---|---|
 | Patient site | `https://YOUR-FRONTEND.vercel.app` |
@@ -366,4 +397,8 @@ GitHub: [@shreyanshu2005](https://github.com/shreyanshu2005)
 
 <div align="center">
 If you like this project, give it a ⭐
+<<<<<<< HEAD
 </div>
+=======
+</div>
+>>>>>>> e319b2e (Update PharmLink project)

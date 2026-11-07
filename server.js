@@ -27,9 +27,9 @@ app.use(express.json());
 const allowedOrigins = [
     'https://pharmlink-red.vercel.app',
     'https://pharmlink-ccgs.vercel.app',
-    // Local development (frontend and admin panel)
     'http://localhost:5173',
     'http://localhost:5174',
+    ...(process.env.ALLOWED_ORIGINS || '').split(',').map(s => s.trim()),
 ].filter(Boolean);
 
 // Configure CORS middleware
@@ -45,7 +45,9 @@ app.use(cors({
         }
     },
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'token', 'adminToken', 'admintoken', 'Admintoken'],
+    allowedHeaders: ['Content-Type', 'Authorization',
+    'token', 'adminToken', 'admintoken', 'Admintoken',
+    'doctorToken', 'doctortoken', 'dToken', 'dtoken'],
     credentials: true,
     maxAge: 86400 // 24 hours
 }));
