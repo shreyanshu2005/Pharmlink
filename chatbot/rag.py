@@ -1,24 +1,27 @@
+"""Retrieval-augmented generation core for the PharmLink assistant (low-memory version).
 
-"""Retrieval-augmented generation core for the PharmLink assistant.
+Flow: question -> Pinecone-hosted embedding -> Pinecone similarity search ->
+prompt with the retrieved passages -> LLM (OpenAI-compatible API) -> answer + sources.
 
-Flow: question -> embed -> Pinecone similarity search -> prompt with the
-retrieved passages -> HuggingFace chat model -> answer + sources.
+No PyTorch / sentence-transformers: embeddings are computed by Pinecone, so the
+service fits comfortably in 512 MB of RAM (Render free tier).
 """
 import os
 from functools import lru_cache
 
 from dotenv import load_dotenv
 from openai import OpenAI
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_pinecone import PineconeVectorStore
+from pinecone import Pinecone
 
 load_dotenv()
 
-EMBED_MODEL = os.getenv("EMBED_MODEL", "sentence-transformers/all-MiniLM-L6-v2")
-LLM_MODEL = os.getenv("LLM_MODEL", "llama-3.1-8b-instant")
-INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "medical-chatbot-index")
+EMBED_MODEL = os.getenv("EMBED_MODEL", "multilingual-e5-large")  # 1024 dims, hosted by Pinecone
+LLM_MODEL = os.getenv("LLM_MODEL", "openai/gpt-oss-20b")
+INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "pharmlink-e5")
 TOP_K = int(os.getenv("TOP_K", "4"))
-MIN_SCORE = float(os.getenv("MIN_SCORE", "0.30"))
+# e5 cosine scores are compressed (unrelated text still scores ~0.7), so the
+# threshold is higher than it was for MiniLM. Tune between 0.75 and 0.85.
+MIN_SCORE = float(os.getenv("MIN_SCORE", "0.80"))
 
 SYSTEM_PROMPT = (
     "You are PharmLink's medical information assistant. Answer the user's "
@@ -36,14 +39,13 @@ NO_ANSWER = (
 
 
 @lru_cache(maxsize=1)
-def get_embeddings():
-    return HuggingFaceEmbeddings(model_name=EMBED_MODEL)
+def get_pc():
+    return Pinecone(api_key=os.environ["PINECONE_API_KEY"])
 
 
 @lru_cache(maxsize=1)
-def get_vectorstore():
-    # PINECONE_API_KEY is read from the environment by the Pinecone client.
-    return PineconeVectorStore(index_name=INDEX_NAME, embedding=get_embeddings())
+def get_index():
+    return get_pc().Index(INDEX_NAME)
 
 
 @lru_cache(maxsize=1)
@@ -51,18 +53,29 @@ def get_llm():
     return OpenAI(api_key=os.getenv("LLM_API_KEY"), base_url=os.getenv("LLM_BASE_URL"))
 
 
+def embed(texts, input_type):
+    """Embed texts with Pinecone's hosted model. input_type: 'query' or 'passage'."""
+    res = get_pc().inference.embed(
+        model=EMBED_MODEL,
+        inputs=list(texts),
+        parameters={"input_type": input_type, "truncate": "END"},
+    )
+    return [item["values"] for item in res]
+
+
 def retrieve(question: str):
-    """Return [(Document, score)] above MIN_SCORE (cosine: higher is closer)."""
-    results = get_vectorstore().similarity_search_with_score(question, k=TOP_K)
-    return [(doc, score) for doc, score in results if score >= MIN_SCORE]
+    """Return [(metadata, score)] above MIN_SCORE (cosine: higher is closer)."""
+    vector = embed([question], "query")[0]
+    res = get_index().query(vector=vector, top_k=TOP_K, include_metadata=True)
+    return [(dict(m.metadata or {}), m.score) for m in res.matches if m.score >= MIN_SCORE]
 
 
-def _sources(docs):
+def _sources(metas):
     seen, out = set(), []
-    for doc in docs:
-        name = os.path.basename(doc.metadata.get("source", "unknown"))
-        page = doc.metadata.get("page")
-        page = int(page) + 1 if isinstance(page, (int, float)) else None
+    for meta in metas:
+        name = os.path.basename(str(meta.get("source", "unknown")))
+        page = meta.get("page")
+        page = int(page) if isinstance(page, (int, float)) else None
         key = (name, page)
         if key not in seen:
             seen.add(key)
@@ -75,8 +88,8 @@ def answer(question: str, history=None):
     if not hits:
         return {"answer": NO_ANSWER, "sources": []}
 
-    docs = [doc for doc, _ in hits]
-    context = "\n\n".join(d.page_content for d in docs)
+    metas = [meta for meta, _ in hits]
+    context = "\n\n".join(m.get("text", "") for m in metas)
 
     messages = [{"role": "system", "content": SYSTEM_PROMPT.format(context=context)}]
     for turn in (history or [])[-6:]:  # short memory for follow-up questions
@@ -87,4 +100,4 @@ def answer(question: str, history=None):
     reply = get_llm().chat.completions.create(
         model=LLM_MODEL, messages=messages, max_tokens=512, temperature=0.2
     )
-    return {"answer": reply.choices[0].message.content.strip(), "sources": _sources(docs)}
+    return {"answer": reply.choices[0].message.content.strip(), "sources": _sources(metas)}
