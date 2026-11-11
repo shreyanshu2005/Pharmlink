@@ -57,9 +57,9 @@
 >>>>>>> e319b2e (Update PharmLink project)
 | Service | URL |
 |---|---|
-| Patient site | `https://YOUR-FRONTEND.vercel.app` |
-| Admin / Doctor panel | `https://YOUR-ADMIN.vercel.app` |
-| API | `https://YOUR-BACKEND.onrender.com` |
+| Patient site | `https://pharmlink-ccgs.vercel.app` |
+| Admin / Doctor panel | `https://pharmlink-red.vercel.app` |
+| API | `https://pharmlink-hk6n.onrender.com/` |
 
 > ⏳ The API runs on a free hosting tier, so the **first request after a quiet period can take about 50 seconds** while the server wakes up.
 
