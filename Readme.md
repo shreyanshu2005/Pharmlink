@@ -51,13 +51,6 @@
 
 ---
 
-## 🎥 Demo videos
-
-[![Watch the Demo](https://img.youtube.com/vi/v4q3-HdnE0g/0.jpg)](https://youtu.be/v4q3-HdnE0g)
-
-[![AI Chatbot Demo](https://img.shields.io/badge/Watch%20Chatbot%20Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=__IsLxIoxu8)
-
----
 
 ## 🌐 Live Demo
 
