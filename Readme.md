@@ -54,7 +54,6 @@
 
 ## 🌐 Live Demo
 
->>>>>>> e319b2e (Update PharmLink project)
 | Service | URL |
 |---|---|
 | Patient site | `https://pharmlink-ccgs.vercel.app` |
